@@ -6,9 +6,9 @@ import ru.job4j.puzzle.firuges.Figure;
 import java.util.Arrays;
 
 /**
- * //TODO add comments.
+ * Класс предназначен для заполнения полей игры "Сокобан".
  *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Anastasia Levina (redheadgirl.lv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
@@ -39,12 +39,12 @@ public class Logic {
         return rst;
     }
 
-    public boolean isFree(Cell ... cells) {
+    public boolean isFree(Cell... cells) {
         boolean result = cells.length > 0;
         for (Cell cell : cells) {
             if (this.findBy(cell) != -1) {
-               result = false;
-               break;
+                result = false;
+                break;
             }
         }
         return result;
@@ -68,9 +68,39 @@ public class Logic {
         return rst;
     }
 
+    public static boolean monoHorizontal(int[][] table, int row) {
+        boolean result = true;
+        for (int index = 0; index < table.length; index++) {
+
+            if (table[row][index] != 1) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public static boolean monoVertical(int[][] table, int column) {
+        boolean result = true;
+        for (int index = 0; index < table.length; index++) {
+
+            if (table[index][column] != 1) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     public boolean isWin() {
         int[][] table = this.convert();
         boolean result = false;
+        for (int index = 0; index < table.length; index++) {
+            if (monoHorizontal(table, index) || monoVertical(table, index)) {
+                result = true;
+                break;
+            }
+        }
         return result;
     }
 
